@@ -28,7 +28,7 @@
 
 var testCase = require('nodeunit').testCase;
 var Pipe = require('capsela-util').Pipe;
-var BufferUtils = require('capsela-util').BufferUtils;
+var StreamUtil = require('capsela-util').StreamUtil;
 
 module.exports['basics'] = testCase({
 
@@ -63,8 +63,12 @@ module.exports['basics'] = testCase({
 
         pipe.on('data', function(chunk) {
             test.equal(typeof chunk, 'object');
-            test.ok(BufferUtils.equal(chunk, expected));
-            test.done();
+            StreamUtil.equal(chunk, expected).then(
+                function(result) {
+                    test.ok(result);
+                    test.done();
+                }
+            )
         });
 
         pipe.write('hello there', 'ascii');
@@ -84,7 +88,7 @@ module.exports['basics'] = testCase({
         pipe.write('aGVsbG8gdGhlcmU=', 'base64');
     },
 
-    "test buffering": function(test) {
+    "test recording": function(test) {
 
         var pipe = new Pipe();
 
@@ -99,5 +103,98 @@ module.exports['basics'] = testCase({
 
         pipe.write('how strait the gate\n');
         pipe.end('nor how charged');
+    }
+});
+
+module.exports['buffering'] = testCase({
+
+    "test buffer with error": function(test) {
+
+        var input = new Pipe();
+
+        Pipe.buffer(input).then(
+            null,
+            function(err) {
+                test.equal(err.message, 'horse changed in mid-stream');
+                test.done();
+            }
+        ).end();
+
+        input.emit('error', new Error('horse changed in mid-stream'));
+    },
+
+    "test buffer no data": function(test) {
+
+        var input = new Pipe();
+
+        Pipe.buffer(input).then(
+            null,
+            function(err) {
+                test.equal(err.message, 'no data received');
+                test.done();
+            }
+        ).end();
+
+        input.end();
+    },
+
+    "test buffer paused stream": function(test) {
+
+        var input = new Pipe();
+
+        input.pause();
+
+        input.write('it matters not');
+        input.end();
+
+        Pipe.buffer(input).then(
+            function(data) {
+                test.equal(data, 'it matters not');
+                test.done();
+            }
+        ).end();
+    }
+});
+
+module.exports['pause/resume'] = testCase({
+
+    "test pause/resume": function(test) {
+
+        var pipe = new Pipe();
+
+        pipe.pause();
+
+        pipe.write("we are the music makers");
+        pipe.write("and we are the dreamers of the dreams");
+        pipe.end();
+
+        pipe.once('data', function(chunk) {
+
+            pipe.pause();
+
+            test.equal(chunk.toString('utf8'), "we are the music makers");
+
+            pipe.once('data', function(chunk) {
+
+                pipe.pause();
+
+                test.equal(chunk.toString('utf8'), "and we are the dreamers of the dreams");
+
+                pipe.on('end', function() {
+                    test.done();
+                });
+
+
+                process.nextTick(function() {
+                    pipe.resume();
+                });
+            });
+
+            process.nextTick(function() {
+                pipe.resume();
+            });
+        });
+
+        pipe.resume();
     }
 });

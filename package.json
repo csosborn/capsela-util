@@ -1,28 +1,47 @@
 {
-  "name": "capsela-util",
-  "description": "Assorted utilities required by most Capsela modules",
-  "version": "1.0",
-  "main": "./index.js",
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "http://www.opensource.org/licenses/mit-license.php"
+    "name": "capsela-util",
+    "description": "Assorted utilities required by most Capsela modules",
+    "version": "1.0.0",
+    "main": "./index.js",
+
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "http://www.opensource.org/licenses/mit-license.php"
+        }
+    ],
+
+    "dependencies": {
+        "qq": ">=0.3.3"
+    },
+
+    "devDependencies": {
+        "nodeunit": ">=0.5.1"
+    },
+
+    "engines": {
+        "node": ">=0.4.6"
+    },
+
+    "scripts": {
+        "test": "nodeunit testing/tests/*"
+    },
+
+    "author": {
+        "name": "Seth Purcell",
+        "email": "seth.purcell@sitelier.com"
+    },
+
+    "contributors": [
+        {
+            "name": "Chris Osborn",
+            "email": "chris.osborn@sitelier.com"
+        }
+    ],
+
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/Sitelier/capsela-util.git"
     }
-  ],
-  "dependencies": {},
-  "devDependencies": {
-      "nodeunit": ">=0.5.1"
-  },
-    
-  "engines": {
-    "node": ">=0.4.6"
-  },
 
-  "scripts": {
-    "test": "nodeunit testing/tests/*"
-  },
-
-  "author": "Chris Osborn <chris.osborn@sitelier.com>",
-  "homepage": "www.capsela.org",
-  "private": true
 }

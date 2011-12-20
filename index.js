@@ -2,7 +2,7 @@
 
 var modules = [
     'Class', 'Pipe', 'SafeStream', 'Log',
-    'Logger', 'BufferUtils', 'Config', 'Ini', 'MonkeyPatcher'];
+    'Logger', 'StreamUtil', 'Config', 'Ini', 'MonkeyPatcher'];
 
 function loadModule(name) {
     var module = require(__dirname + '/lib/' + name);
