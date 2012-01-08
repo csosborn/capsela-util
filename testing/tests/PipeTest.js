@@ -97,12 +97,32 @@ module.exports['basics'] = testCase({
         pipe.getData().then(
             function(data) {
                 test.equal(data, 'how strait the gate\nnor how charged')
+                test.ok(Buffer.isBuffer(data));
                 test.done();
             }
         ).end();
 
         pipe.write('how strait the gate\n');
         pipe.end('nor how charged');
+    },
+
+    "test getData with encoding": function(test) {
+
+        var pipe = new Pipe();
+
+        pipe.write('it matters not'); // should be lost, since getData not yet called
+
+        pipe.getData('utf8').then(
+            function(data) {
+                test.equal(data, 'how strait the gate\nnor how charged')
+                test.ok(typeof data == 'string');
+                test.ok(!Buffer.isBuffer(data));
+                test.done();
+            }
+        ).end();
+
+        pipe.write('how strait the gate\n');
+        pipe.end('nor how charged')
     }
 });
 
@@ -150,6 +170,26 @@ module.exports['buffering'] = testCase({
         Pipe.buffer(input).then(
             function(data) {
                 test.equal(data, 'it matters not');
+                test.ok(Buffer.isBuffer(data));
+                test.done();
+            }
+        ).end();
+    },
+
+    "test buffer with encoding": function(test) {
+
+        var input = new Pipe();
+
+        input.pause();
+
+        input.write('it matters not');
+        input.end();
+
+        Pipe.buffer(input, 'utf8').then(
+            function(data) {
+                test.equal(data, 'it matters not');
+                test.equal(typeof data, "string");
+                test.ok(!Buffer.isBuffer(data));
                 test.done();
             }
         ).end();
