@@ -143,17 +143,27 @@ module.exports['buffering'] = testCase({
         input.emit('error', new Error('horse changed in mid-stream'));
     },
 
-    "test buffer no data": function(test) {
+    "test buffer with no data": function(test) {
 
         var input = new Pipe();
 
         Pipe.buffer(input).then(
-            null,
-            function(err) {
-                test.equal(err.message, 'no data received');
+            function(data) {
+                test.ok(Buffer.isBuffer(data));
+                test.equal(data.length, 0);
                 test.done();
             }
-        ).end();
+        );
+
+        // we used to call this an error
+
+//        Pipe.buffer(input).then(
+//            null,
+//            function(err) {
+//                test.equal(err.message, 'no data received');
+//                test.done();
+//            }
+//        );
 
         input.end();
     },
