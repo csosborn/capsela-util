@@ -26,11 +26,10 @@
 
 "use strict";
 
-var testCase = require('nodeunit').testCase;
 var SafeStream = require('capsela-util').SafeStream;
 var Pipe = require('capsela-util').Pipe;
 
-module.exports['basics'] = testCase({
+module.exports['basics'] = {
 
     "test nominal": function(test) {
 
@@ -159,4 +158,4 @@ module.exports['basics'] = testCase({
 
         s.write('hi there', 'utf8');
     }
-});
+};

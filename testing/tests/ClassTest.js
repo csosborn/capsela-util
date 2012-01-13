@@ -23,8 +23,6 @@
 
 "use strict";
 
-var testCase = require('nodeunit').testCase;
-
 var Class = require('capsela-util').Class;
 
 var A = Class.extend({
@@ -107,7 +105,7 @@ null,
 });
 
 
-module.exports = testCase({
+module.exports = {
 
     'can extend class': function(test) {
         test.expect(12);
@@ -444,4 +442,4 @@ module.exports = testCase({
         test.done();
     }
 
-});
+};
