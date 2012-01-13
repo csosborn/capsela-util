@@ -26,10 +26,9 @@
 
 "use strict";
 
-var testCase = require('nodeunit').testCase;
 var Log = require('capsela-util').Log;
 
-module.exports = testCase({
+module.exports = {
 
     'test init': function(test) {
 
@@ -49,4 +48,4 @@ module.exports = testCase({
             test.done();
         });
     }
-});
+};

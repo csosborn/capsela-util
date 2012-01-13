@@ -26,11 +26,10 @@
 
 "use strict";
 
-var testCase = require('nodeunit').testCase;
 var Pipe = require('capsela-util').Pipe;
 var StreamUtil = require('capsela-util').StreamUtil;
 
-module.exports['basics'] = testCase({
+module.exports['basics'] = {
 
     "test write/end no encoding": function(test) {
 
@@ -124,9 +123,9 @@ module.exports['basics'] = testCase({
         pipe.write('how strait the gate\n');
         pipe.end('nor how charged')
     }
-});
+};
 
-module.exports['buffering'] = testCase({
+module.exports['buffering'] = {
 
     "test buffer with error": function(test) {
 
@@ -204,9 +203,9 @@ module.exports['buffering'] = testCase({
             }
         ).end();
     }
-});
+};
 
-module.exports['pause/resume'] = testCase({
+module.exports['pause/resume'] = {
 
     "test pause/resume": function(test) {
 
@@ -247,4 +246,4 @@ module.exports['pause/resume'] = testCase({
 
         pipe.resume();
     }
-});
+};
