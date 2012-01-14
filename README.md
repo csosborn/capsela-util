@@ -7,4 +7,4 @@ Generally helpful utilities required by Capsela
 
 Resources
 ---
-  - [The Wiki](https://github.com/sitelier/capsela/wiki)
+  - [Website](http://www.capsela.org)
