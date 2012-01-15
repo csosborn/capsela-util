@@ -27,25 +27,30 @@
 "use strict";
 
 var Log = require('capsela-util').Log;
+var Pipe = require('capsela-util').Pipe;
+var mp = require('capsela-util').MonkeyPatcher;
 
 module.exports = {
 
-    'test init': function(test) {
+    setUp: mp.setUp,
+    tearDown: mp.tearDown,
+
+    "test write event": function(test) {
+
+        test.expect(1);
+
+        mp.patch(Date, 'now', function() {
+            return 27000;
+        });
 
         var log = new Log();
 
-        log.on('ready', function() {
-            test.done();
-        });
-    },
+        log.writeEvent(Log.INFO, "this is a test", {
+            write: function(data) {
+                test.equal(data, "1969-12-31 19:00:27 INFO: this is a test");
+            }
+        })
 
-    "test get events": function(test) {
-
-        var log = new Log();
-
-        log.getEvents(function(err, events) {
-            test.deepEqual(events, []);
-            test.done();
-        });
+        test.done();
     }
 };
