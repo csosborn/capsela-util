@@ -29,6 +29,7 @@
 var Log = require('capsela-util').Log;
 var Pipe = require('capsela-util').Pipe;
 var mp = require('capsela-util').MonkeyPatcher;
+var Logger = require('capsela-util').Logger;
 
 module.exports = {
 
@@ -47,9 +48,28 @@ module.exports = {
 
         log.writeEvent(Log.INFO, "this is a test", {
             write: function(data) {
-                test.equal(data, "1969-12-31 19:00:27 INFO: this is a test");
+                test.equal(data, "1969-12-31 19:00:27 INFO: this is a test\n");
             }
-        })
+        });
+
+        test.done();
+    },
+
+    "test watch": function(test) {
+
+        test.expect(2);
+
+        var log = new Log();
+        var logger = new Logger();
+
+        log.log = function(priority, message) {
+            test.equal(priority, Log.INFO);
+            test.equal(message, 'this is a test');
+        }
+
+        log.watch(logger);
+
+        logger.log(Log.INFO, 'this is a test');
 
         test.done();
     }
