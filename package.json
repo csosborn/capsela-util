@@ -1,7 +1,7 @@
 {
     "name": "capsela-util",
     "description": "Assorted utilities required by most Capsela modules",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "main": "./index.js",
 
     "licenses": [
@@ -16,7 +16,7 @@
     },
 
     "devDependencies": {
-        "nodeunit": ">=0.5.1"
+        "testpilot": ">=0.2.2"
     },
 
     "engines": {
@@ -24,7 +24,7 @@
     },
 
     "scripts": {
-        "test": "nodeunit testing/tests/*"
+        "test": "testpilot testing/tests"
     },
 
     "author": {
