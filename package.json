@@ -41,6 +41,6 @@
 
     "repository": {
         "type": "git",
-        "url": "git://github.com/Sitelier/capsela-util.git"
+        "url": "git://github.com/capsela/capsela-util.git"
     }
 }
