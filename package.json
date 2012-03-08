@@ -1,7 +1,7 @@
 {
     "name": "capsela-util",
     "description": "Assorted utilities required by most Capsela modules",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "main": "./index.js",
 
     "licenses": [
