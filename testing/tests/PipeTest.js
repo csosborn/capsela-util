@@ -122,6 +122,18 @@ module.exports['basics'] = {
 
         pipe.write('how strait the gate\n');
         pipe.end('nor how charged')
+    },
+
+    "test pipe": function(test) {
+
+        var pipe = new Pipe();
+        var pipe2 = new Pipe();
+
+        var result = pipe.pipe(pipe2);
+
+        test.strictEqual(result, pipe2);
+
+        test.done();
     }
 };
 
