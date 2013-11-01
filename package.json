@@ -1,7 +1,7 @@
 {
     "name": "capsela-util",
     "description": "Assorted utilities required by most Capsela modules",
-    "version": "1.0.5",
+    "version": "1.1.0",
     "main": "./index.js",
 
     "licenses": [
@@ -12,15 +12,15 @@
     ],
 
     "dependencies": {
-        "q": "~0.8.12"
+        "q": ">=0.9.0"
     },
 
     "devDependencies": {
-        "testpilot": ">=0.2.2"
+        "testpilot": ">=0.4.0"
     },
 
     "engines": {
-        "node": ">=0.4.6"
+        "node": ">=0.10.0"
     },
 
     "scripts": {
@@ -35,7 +35,7 @@
     "contributors": [
         {
             "name": "Chris Osborn",
-            "email": "chris.osborn@sitelier.com"
+            "email": "csosborn@gmail.com"
         }
     ],
 
